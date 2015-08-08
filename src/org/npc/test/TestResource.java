@@ -34,7 +34,7 @@ public class TestResource {
 	}
 	
 	@PUT
-	@Path("apiv0/product")
+	@Path("apiv0")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Product getTrackedChallengeShare(JAXBElement<Product> apiProduct) {
