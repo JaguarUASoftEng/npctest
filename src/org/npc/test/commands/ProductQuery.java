@@ -5,8 +5,8 @@ import java.util.Random;
 import java.util.UUID;
 
 import org.npc.test.TestConstants;
-import org.npc.test.api.Product;
 import org.npc.test.commands.interfaces.ResultCommandInterface;
+import org.npc.testmodel.api.Product;
 
 public class ProductQuery implements ResultCommandInterface<Product> {
 	@Override

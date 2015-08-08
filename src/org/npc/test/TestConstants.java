@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-import org.npc.test.api.Product;
+import org.npc.testmodel.api.Product;
 
 public class TestConstants {
 	private static Map<UUID, Product> currentProductLookup = null;

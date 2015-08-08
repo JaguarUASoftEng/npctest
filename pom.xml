@@ -48,5 +48,10 @@
   		<artifactId>jersey-media-moxy</artifactId>
   		<version>2.13</version>
   	</dependency>
+  	<dependency>
+  		<groupId>org.npc.library</groupId>
+  		<artifactId>testmodel</artifactId>
+  		<version>0.0.1-SNAPSHOT</version>
+  	</dependency>
   </dependencies>
 </project>

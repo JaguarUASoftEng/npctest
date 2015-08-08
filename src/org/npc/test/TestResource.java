@@ -8,10 +8,10 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import org.npc.test.api.Product;
-import org.npc.test.api.ProductListing;
 import org.npc.test.commands.ProductQuery;
 import org.npc.test.commands.ProductsQuery;
+import org.npc.testmodel.api.Product;
+import org.npc.testmodel.api.ProductListing;
 
 @Path("/")
 public class TestResource {

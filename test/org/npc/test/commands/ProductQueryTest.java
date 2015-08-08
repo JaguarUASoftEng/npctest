@@ -8,8 +8,8 @@ import java.util.UUID;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.npc.test.api.Product;
-import org.npc.test.api.ProductListing;
+import org.npc.testmodel.api.Product;
+import org.npc.testmodel.api.ProductListing;
 
 public class ProductQueryTest {
 	@Before

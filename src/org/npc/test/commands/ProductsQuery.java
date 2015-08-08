@@ -6,9 +6,9 @@ import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.RandomStringUtils;
 import org.npc.test.TestConstants;
-import org.npc.test.api.Product;
-import org.npc.test.api.ProductListing;
 import org.npc.test.commands.interfaces.ResultCommandInterface;
+import org.npc.testmodel.api.Product;
+import org.npc.testmodel.api.ProductListing;
 
 public class ProductsQuery implements ResultCommandInterface<ProductListing> {
 	@Override
