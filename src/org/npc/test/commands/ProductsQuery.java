@@ -12,7 +12,8 @@ public class ProductsQuery implements ResultCommandInterface<ProductListing> {
 	public ProductListing execute() {
 		return (new ProductListing()).
 			setProducts(
-				(new ProductRepository()).all().stream().map(mp -> (new Product(mp))).collect(Collectors.toList())
-			);
+					(new ProductRepository()).all().stream().map(mp -> (new Product(mp))).collect(Collectors.toList()
+			)
+		);
 	}
 }

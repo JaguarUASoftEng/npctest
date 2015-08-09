@@ -20,8 +20,8 @@ public class CreateProductCommand implements ResultCommandInterface<Product> {
 			return (new Product()).setApiRequestStatus(ProductApiRequestStatus.LOOKUP_CODE_ALREADY_EXISTS);
 		}
 		
-		modelProduct = new org.npc.testmodel.models.Product(UUID.randomUUID());
-		this.apiProduct = modelProduct.synchronize(this.apiProduct);
+		this.apiProduct.setId(UUID.randomUUID());
+		modelProduct = new org.npc.testmodel.models.Product(this.apiProduct);
 		modelProduct.save();
 
 		return this.apiProduct;
