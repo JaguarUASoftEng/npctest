@@ -6,7 +6,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.npc.test.commands.interfaces.ResultCommandInterface;
 import org.npc.testmodel.api.Product;
 import org.npc.testmodel.enums.ProductApiRequestStatus;
-import org.npc.testmodel.repositories.ProductRepository;
+import org.npc.testmodel.repositories.interfaces.ProductRepositoryInterface;
 
 public class CreateProductCommand implements ResultCommandInterface<Product> {
 	@Override
@@ -15,7 +15,7 @@ public class CreateProductCommand implements ResultCommandInterface<Product> {
 			return (new Product()).setApiRequestStatus(ProductApiRequestStatus.INVALID_INPUT);
 		}
 		
-		org.npc.testmodel.models.Product modelProduct = (new ProductRepository()).byLookupCode(this.apiProduct.getLookupCode());
+		org.npc.testmodel.models.Product modelProduct = this.productRepository.byLookupCode(this.apiProduct.getLookupCode());
 		if (modelProduct != null) {
 			return (new Product()).setApiRequestStatus(ProductApiRequestStatus.LOOKUP_CODE_ALREADY_EXISTS);
 		}
@@ -27,9 +27,22 @@ public class CreateProductCommand implements ResultCommandInterface<Product> {
 		return this.apiProduct;
 	}
 
+	//Properties
 	private Product apiProduct;
-	
-	public CreateProductCommand(Product apiProduct) {
+	public Product getApiProduct() {
+		return this.apiProduct;
+	}
+	public CreateProductCommand setApiProduct(Product apiProduct) {
 		this.apiProduct = apiProduct;
+		return this;
+	}
+	
+	private ProductRepositoryInterface productRepository;
+	public ProductRepositoryInterface getProductRepository() {
+		return this.productRepository;
+	}
+	public CreateProductCommand setProductRepository(ProductRepositoryInterface productRepository) {
+		this.productRepository = productRepository;
+		return this;
 	}
 }

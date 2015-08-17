@@ -1,38 +1,34 @@
 package org.npc.test.commands;
 
+import static org.easymock.EasyMock.expect;
+import static org.easymock.EasyMock.replay;
+import static org.easymock.EasyMock.verify;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
-import java.util.UUID;
+import java.util.List;
 
-import org.apache.commons.lang3.StringUtils;
+import org.easymock.EasyMockSupport;
 import org.junit.Test;
-import org.npc.test.TestConstants;
-import org.npc.testmodel.api.Product;
+import org.npc.test.commands.builders.ProductBuilder;
 import org.npc.testmodel.api.ProductListing;
+import org.npc.testmodel.repositories.interfaces.ProductRepositoryInterface;
 
-public class ProductsQueryTest {
+public class ProductsQueryTest extends EasyMockSupport {
 	@Test
 	public void testExecute() {
-		ProductListing productListing = (new ProductsQuery()).execute();
+		List<org.npc.testmodel.models.Product> modelProducts = ProductBuilder.buildManyModelProducts();
+		ProductRepositoryInterface productRepository = this.createMock(ProductRepositoryInterface.class);
 		
-		assertTrue("Listing provides a result with count greater than zero", (productListing.getProducts().size() > 0));
-	}
+		expect(productRepository.all()).andReturn(modelProducts);
+		replay(productRepository);
 
-	@Test
-	public void testExecuteUpdatesCache() {
-		(new ProductsQuery()).execute();
-		
-		assertTrue("Cache is populated", (TestConstants.getCurrentProductLookup().size() > 0));
-	}
+		ProductListing apiProductListing = (new ProductsQuery()).
+			setProductRepository(productRepository).
+			execute();
+		verify();
 
-	@Test
-	public void testExecuteProvidesOnlyIdentification() {
-		ProductListing productListing = (new ProductsQuery()).execute();
-
-		for (Product product : productListing.getProducts()) {
-			assertTrue("ID is populated", !product.getId().equals(new UUID(0, 0)));
-			assertTrue("LookupCode is populated", !StringUtils.isBlank(product.getLookupCode()));
-			assertTrue("Count is not populated", (product.getCount() < 0));
-		}
+		assertNotNull("Retrieved product is defined", apiProductListing);
+		assertTrue("Retrieved product has correct number of products", (apiProductListing.getProducts().size() == modelProducts.size()));
 	}
 }

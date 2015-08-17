@@ -1,43 +1,53 @@
 package org.npc.test.commands;
 
+import static org.easymock.EasyMock.expect;
+import static org.easymock.EasyMock.replay;
+import static org.easymock.EasyMock.verify;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
-import java.util.List;
 import java.util.UUID;
 
-import org.junit.Before;
+import org.easymock.EasyMockSupport;
 import org.junit.Test;
+import org.npc.test.commands.builders.ProductBuilder;
 import org.npc.testmodel.api.Product;
-import org.npc.testmodel.api.ProductListing;
+import org.npc.testmodel.enums.ProductApiRequestStatus;
+import org.npc.testmodel.repositories.interfaces.ProductRepositoryInterface;
 
-public class ProductQueryTest {
-	@Before
-	public void setUp() throws Exception {
-		ProductListing productListing = (new ProductsQuery()).execute();
-		this.products = productListing.getProducts();
-	}
-
+public class ProductQueryTest extends EasyMockSupport {
 	@Test
 	public void testExecuteReturnsDefined() {
-		Product product = this.products.get(0);
-		product = (new ProductQuery(product.getId())).execute();
+		org.npc.testmodel.models.Product modelProduct = ProductBuilder.buildModelProduct();
+		ProductRepositoryInterface productRepository = this.createMock(ProductRepositoryInterface.class);
+		
+		expect(productRepository.get(modelProduct.getId())).andReturn(modelProduct);
+		replay(productRepository);
 
-		assertNotNull("Retrieved product is defined", product);
+		Product apiProduct = (new ProductQuery()).
+			setProductId(modelProduct.getId()).
+			setProductRepository(productRepository).
+			execute();
+		verify();
+
+		assertNotNull("Retrieved product is defined", apiProduct);
+		assertTrue("Retrieved product has an OK status", (apiProduct.getApiRequestStatus() == ProductApiRequestStatus.OK));
+		assertTrue("Retrieved product has correct ID", apiProduct.getId().equals(modelProduct.getId()));
+		assertTrue("Retrieved product has data", (apiProduct.getCount() == modelProduct.getCount()));
 	}
 
 	@Test (expected=NullPointerException.class)
 	public void testExecuteThrowsExceptionUndefined() {
-		(new ProductQuery(UUID.randomUUID())).execute();
+		UUID nonExistantId = UUID.randomUUID();
+		ProductRepositoryInterface productRepository = this.createMock(ProductRepositoryInterface.class);
+		
+		expect(productRepository.get(nonExistantId)).andReturn((org.npc.testmodel.models.Product)null);
+		replay(productRepository);
+
+		(new ProductQuery()).
+			setProductId(nonExistantId).
+			setProductRepository(productRepository).
+			execute();
+		verify();
 	}
-
-	@Test
-	public void testExecuteReturnsDataOfDefined() {
-		Product product = this.products.get(0);
-		product = (new ProductQuery(product.getId())).execute();
-
-		assertTrue("Retrieved product contains additional data", (product.getCount() > 0));
-	}
-
-	private List<Product> products;
 }

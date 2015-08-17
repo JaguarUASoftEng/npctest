@@ -16,6 +16,7 @@ import org.npc.test.commands.ProductQuery;
 import org.npc.test.commands.ProductsQuery;
 import org.npc.testmodel.api.Product;
 import org.npc.testmodel.api.ProductListing;
+import org.npc.testmodel.repositories.ProductRepository;
 
 @Path("/")
 public class TestResource {
@@ -23,14 +24,19 @@ public class TestResource {
 	@Path("apiv0/products")
 	@Produces(MediaType.APPLICATION_JSON)
 	public ProductListing getProducts() {
-		return (new ProductsQuery()).execute();
+		return (new ProductsQuery()).
+			setProductRepository(new ProductRepository()).
+			execute();
 	}
 	
 	@GET
 	@Path("apiv0/product/{productid}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Product getProduct(@PathParam("productid") UUID productId) {
-		return (new ProductQuery(productId)).execute();
+		return (new ProductQuery()).
+			setProductId(productId).
+			setProductRepository(new ProductRepository()).
+			execute();
 	}
 	
 	@PUT
@@ -38,7 +44,10 @@ public class TestResource {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Product getTrackedChallengeShare(JAXBElement<Product> apiProduct) {
-		return (new CreateProductCommand(apiProduct.getValue())).execute();
+		return (new CreateProductCommand()).
+			setApiProduct(apiProduct.getValue()).
+			setProductRepository(new ProductRepository()).
+			execute();
 	}
 	
 	@GET

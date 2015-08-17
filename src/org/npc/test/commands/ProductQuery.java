@@ -4,19 +4,32 @@ import java.util.UUID;
 
 import org.npc.test.commands.interfaces.ResultCommandInterface;
 import org.npc.testmodel.api.Product;
-import org.npc.testmodel.repositories.ProductRepository;
+import org.npc.testmodel.repositories.interfaces.ProductRepositoryInterface;
 
 public class ProductQuery implements ResultCommandInterface<Product> {
 	@Override
 	public Product execute() {
 		return new Product(
-			(new ProductRepository()).get(this.productId)
+			this.productRepository.get(this.productId)
 		);
 	}
 
+	//Properties
 	private UUID productId;
-	
-	public ProductQuery(UUID productId) {
+	public UUID getProductId() {
+		return this.productId;
+	}
+	public ProductQuery setProductId(UUID productId) {
 		this.productId = productId;
+		return this;
+	}
+	
+	private ProductRepositoryInterface productRepository;
+	public ProductRepositoryInterface getProductRepository() {
+		return this.productRepository;
+	}
+	public ProductQuery setProductRepository(ProductRepositoryInterface productRepository) {
+		this.productRepository = productRepository;
+		return this;
 	}
 }
