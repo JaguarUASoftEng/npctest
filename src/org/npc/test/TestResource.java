@@ -43,7 +43,7 @@ public class TestResource {
 	@Path("apiv0")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Product getTrackedChallengeShare(JAXBElement<Product> apiProduct) {
+	public Product createProduct(JAXBElement<Product> apiProduct) {
 		return (new CreateProductCommand()).
 			setApiProduct(apiProduct.getValue()).
 			setProductRepository(new ProductRepository()).
