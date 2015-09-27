@@ -33,7 +33,7 @@ public class ProductQueryTest extends EasyMockSupport {
 		assertNotNull("Retrieved product is defined", apiProduct);
 		assertTrue("Retrieved product has an OK status", (apiProduct.getApiRequestStatus() == ProductApiRequestStatus.OK));
 		assertTrue("Retrieved product has correct ID", apiProduct.getId().equals(modelProduct.getId()));
-		assertTrue("Retrieved product has data", (apiProduct.getCount() == modelProduct.getCount()));
+		assertTrue("Retrieved product has data", (apiProduct.getQuantity() == modelProduct.getQuantity()));
 	}
 
 	@Test (expected=NullPointerException.class)

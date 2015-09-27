@@ -1,5 +1,6 @@
 package org.npc.test.commands.builders;
 
+import java.time.LocalDateTime;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
@@ -11,8 +12,10 @@ public class ProductBuilder {
 	//Model products
 	public static org.npc.testmodel.models.Product buildNewModelProduct() {
 		return (new org.npc.testmodel.models.Product()).
-			setLookupCode(RandomStringUtils.randomAlphanumeric(PRODUCT_LOOKUP_CODE_LENGTH)).
-			setCount(MIN_PRODUCT_COUNT + random.nextInt(MAX_PRODUCT_COUNT - MIN_PRODUCT_COUNT));
+				setDescription("").setLookupCode(RandomStringUtils.randomAlphabetic(PRODUCT_LOOKUP_CODE_LENGTH)).
+				setPrice(-1.0).setItemType(-1).setCost(-1.0).setQuantity(MIN_PRODUCT_COUNT + random.nextInt(MAX_PRODUCT_COUNT - MIN_PRODUCT_COUNT)).setReorderPoint(-1).
+				setRestockLevel(-1).setParentItem(-1).setExtendedDescription("").setActive(-1).setMSRP(-1.00).
+				setCreatedOn(LocalDateTime.now().minusDays(random.nextInt(DAYS_IN_FIVE_YEARS)));
 	}
 	
 	public static List<org.npc.testmodel.models.Product> buildManyNewModelProducts() {
@@ -28,8 +31,10 @@ public class ProductBuilder {
 	
 	public static org.npc.testmodel.models.Product buildModelProduct() {
 		return (new org.npc.testmodel.models.Product(UUID.randomUUID())).
-			setLookupCode(RandomStringUtils.randomAlphanumeric(PRODUCT_LOOKUP_CODE_LENGTH)).
-			setCount(MIN_PRODUCT_COUNT + random.nextInt(MAX_PRODUCT_COUNT - MIN_PRODUCT_COUNT));
+				setDescription("").setLookupCode(RandomStringUtils.randomAlphabetic(PRODUCT_LOOKUP_CODE_LENGTH)).
+				setPrice(-1.0).setItemType(-1).setCost(-1.0).setQuantity(MIN_PRODUCT_COUNT + random.nextInt(MAX_PRODUCT_COUNT - MIN_PRODUCT_COUNT)).setReorderPoint(-1).
+				setRestockLevel(-1).setParentItem(-1).setExtendedDescription("").setActive(-1).setMSRP(-1.00).
+				setCreatedOn(LocalDateTime.now().minusDays(random.nextInt(DAYS_IN_FIVE_YEARS)));
 	}
 	
 	public static List<org.npc.testmodel.models.Product> buildManyModelProducts() {
@@ -45,8 +50,10 @@ public class ProductBuilder {
 	
 	public static org.npc.testmodel.api.Product buildNewApiProduct() {
 		return (new org.npc.testmodel.api.Product()).
-			setLookupCode(RandomStringUtils.randomAlphanumeric(PRODUCT_LOOKUP_CODE_LENGTH)).
-			setCount(MIN_PRODUCT_COUNT + random.nextInt(MAX_PRODUCT_COUNT - MIN_PRODUCT_COUNT));
+				setDescription("").setLookupCode(RandomStringUtils.randomAlphabetic(PRODUCT_LOOKUP_CODE_LENGTH)).
+				setPrice(-1.0).setItemType(-1).setCost(-1.0).setQuantity(MIN_PRODUCT_COUNT + random.nextInt(MAX_PRODUCT_COUNT - MIN_PRODUCT_COUNT)).setReorderPoint(-1).
+				setRestockLevel(-1).setParentItem(-1).setExtendedDescription("").setActive(-1).setMSRP(-1.00).
+				setCreatedOn(LocalDateTime.now().minusDays(random.nextInt(DAYS_IN_FIVE_YEARS)));
 	}
 	
 	public static List<org.npc.testmodel.api.Product> buildManyNewApiProducts() {
@@ -62,9 +69,10 @@ public class ProductBuilder {
 	
 	public static org.npc.testmodel.api.Product buildApiProduct() {
 		return (new org.npc.testmodel.api.Product()).
-			setId(UUID.randomUUID()).
-			setLookupCode(RandomStringUtils.randomAlphanumeric(PRODUCT_LOOKUP_CODE_LENGTH)).
-			setCount(MIN_PRODUCT_COUNT + random.nextInt(MAX_PRODUCT_COUNT - MIN_PRODUCT_COUNT));
+				setDescription("").setLookupCode(RandomStringUtils.randomAlphabetic(PRODUCT_LOOKUP_CODE_LENGTH)).
+				setPrice(-1.0).setItemType(-1).setCost(-1.0).setQuantity(MIN_PRODUCT_COUNT + random.nextInt(MAX_PRODUCT_COUNT - MIN_PRODUCT_COUNT)).setReorderPoint(-1).
+				setRestockLevel(-1).setParentItem(-1).setExtendedDescription("").setActive(-1).setMSRP(-1.00).
+				setCreatedOn(LocalDateTime.now().minusDays(random.nextInt(DAYS_IN_FIVE_YEARS)));
 	}
 	
 	public static List<org.npc.testmodel.api.Product> buildManyApiProducts() {
@@ -85,6 +93,7 @@ public class ProductBuilder {
 	private static final int MIN_PRODUCT_LIST_LENGTH = 2;
 	private static final int MAX_PRODUCT_LIST_LENGTH = 10;
 	private static final int PRODUCT_LOOKUP_CODE_LENGTH = 20;
+	private static final int DAYS_IN_FIVE_YEARS = 1827;
 	
 	static {
 		random = new Random(System.currentTimeMillis());
