@@ -12,7 +12,7 @@ public class CreateTransactionEntryCommand implements ResultCommandInterface<Tra
 	@Override
 	public TransactionEntry execute() {
 		
-		if (StringUtils.isBlank(this.apiTransactionEntry.getRecordID())) {
+		if (StringUtils.isBlank(""+this.apiTransactionEntry.getRecordID())) {
 			return (new TransactionEntry()).setApiRequestStatus(TransactionEntryApiRequestStatus.INVALID_INPUT);
 		}
 		
