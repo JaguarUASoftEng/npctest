@@ -18,6 +18,13 @@ import org.npc.testmodel.api.Product;
 import org.npc.testmodel.api.ProductListing;
 import org.npc.testmodel.repositories.ProductRepository;
 
+import org.npc.test.commands.CreateTransactionEntryCommand;
+import org.npc.test.commands.TransactionEntryQuery;
+import org.npc.test.commands.TransactionEntriesQuery;
+import org.npc.testmodel.api.TransactionEntry;
+import org.npc.testmodel.api.TransactionEntryListing;
+import org.npc.testmodel.repositories.TransactionEntryRepository;
+
 @Path("/")
 public class TestResource {
 	@GET
@@ -47,6 +54,36 @@ public class TestResource {
 		return (new CreateProductCommand()).
 			setApiProduct(apiProduct.getValue()).
 			setProductRepository(new ProductRepository()).
+			execute();
+	}
+	
+	@GET
+	@Path("apiv0/transactionEntries")
+	@Produces(MediaType.APPLICATION_JSON)
+	public TransactionEntryListing getTransactionEntries() {
+		return (new TransactionEntriesQuery()).
+			setTransactionEntryRepository(new TransactionEntryRepository()).
+			execute();
+	}
+	
+	@GET
+	@Path("apiv0/transactionEntry/{recordid}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public TransactionEntry getTransactionEntry(@PathParam("recordid") UUID recordID) {
+		return (new TransactionEntryQuery()).
+			setRecordID(recordID).
+			setTransactionEntryRepository(new TransactionEntryRepository()).
+			execute();
+	}
+	
+	@PUT
+	@Path("apiv0")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public TransactionEntry createTransactionEntry(JAXBElement<TransactionEntry> apiTransactionEntry) {
+		return (new CreateTransactionEntryCommand()).
+			setApiTransactionEntry(apiTransactionEntry.getValue()).
+			setTransactionEntryRepository(new TransactionEntryRepository()).
 			execute();
 	}
 	
