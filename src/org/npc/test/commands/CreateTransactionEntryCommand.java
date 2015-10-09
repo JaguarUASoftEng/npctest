@@ -2,7 +2,6 @@ package org.npc.test.commands;
 
 import java.util.UUID;
 
-import org.apache.commons.lang3.StringUtils;
 import org.npc.test.commands.interfaces.ResultCommandInterface;
 import org.npc.testmodel.api.TransactionEntry;
 import org.npc.testmodel.enums.TransactionEntryApiRequestStatus;
@@ -12,13 +11,13 @@ public class CreateTransactionEntryCommand implements ResultCommandInterface<Tra
 	@Override
 	public TransactionEntry execute() {
 		
-		if (StringUtils.isBlank(this.apiTransactionEntry.getRecordID())) {
+		if (this.apiTransactionEntry.getRecordID() == -1) {
 			return (new TransactionEntry()).setApiRequestStatus(TransactionEntryApiRequestStatus.INVALID_INPUT);
 		}
 		
 		org.npc.testmodel.models.TransactionEntry modelTransactionEntry = this.transactionEntryRepository.byRecordID(this.apiTransactionEntry.getRecordID());
 		if (modelTransactionEntry != null) {
-			return (new TransactionEntry()).setApiRequestStatus(TransactionEntryApiRequestStatus.RECORD_ID_ALREADY_EXISTS);
+			return (new TransactionEntry()).setApiRequestStatus(TransactionEntryApiRequestStatus.LOOKUP_CODE_ALREADY_EXISTS);
 		}
 		
 		this.apiTransactionEntry.setId(UUID.randomUUID());
