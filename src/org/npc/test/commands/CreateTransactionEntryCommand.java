@@ -17,7 +17,7 @@ public class CreateTransactionEntryCommand implements ResultCommandInterface<Tra
 		
 		org.npc.testmodel.models.TransactionEntry modelTransactionEntry = this.transactionEntryRepository.byRecordID(this.apiTransactionEntry.getRecordID());
 		if (modelTransactionEntry != null) {
-			return (new TransactionEntry()).setApiRequestStatus(TransactionEntryApiRequestStatus.LOOKUP_CODE_ALREADY_EXISTS);
+			return (new TransactionEntry()).setApiRequestStatus(TransactionEntryApiRequestStatus.RECORD_ID_ALREADY_EXISTS);
 		}
 		
 		this.apiTransactionEntry.setId(UUID.randomUUID());
